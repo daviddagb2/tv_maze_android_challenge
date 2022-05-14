@@ -1,9 +1,9 @@
-package com.gonzalez.blanchard.tvmaze.data.models;
+package com.gonzalez.blanchard.tvmaze.data.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Previousepisode {
+public class Self {
 
     @SerializedName("href")
     @Expose

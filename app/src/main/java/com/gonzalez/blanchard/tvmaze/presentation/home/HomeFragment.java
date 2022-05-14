@@ -1,10 +1,12 @@
 package com.gonzalez.blanchard.tvmaze.presentation.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,17 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.gonzalez.blanchard.tvmaze.R;
 import com.gonzalez.blanchard.tvmaze.adapters.rvTvShowsAdapter;
-import com.gonzalez.blanchard.tvmaze.data.models.Image;
-import com.gonzalez.blanchard.tvmaze.data.models.TvShow;
+import com.gonzalez.blanchard.tvmaze.data.model.TvShowModel;
+import com.gonzalez.blanchard.tvmaze.data.repositories.TvShowRepository;
 import com.gonzalez.blanchard.tvmaze.databinding.FragmentHomeBinding;
+import com.gonzalez.blanchard.tvmaze.events.TvShowRequestEvent;
+import com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailShowActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +37,8 @@ public class HomeFragment extends Fragment {
     RecyclerView list;
     HomeViewModel homeViewModel;
     View root;
+    List<TvShowModel> listoftvshows = new ArrayList<>();
+    ProgressBar loading;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,8 +47,9 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
+        loading = root.findViewById(R.id.loading);
         list = root.findViewById(R.id.rvlist);
-        list.setLayoutManager(new GridLayoutManager(root.getContext(),2));
+        list.setLayoutManager(new GridLayoutManager(root.getContext(),3));
         list.setHasFixedSize(true);
         //list.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
@@ -59,8 +68,8 @@ public class HomeFragment extends Fragment {
     }
 
     public void onViewCreated(){
-
         //getTvShows();
+        getTvShows();
 
         //Init events list
         initTvShowList();
@@ -68,59 +77,58 @@ public class HomeFragment extends Fragment {
 
     private void getTvShows(){
         try{
-
-
+            loading.setVisibility(View.VISIBLE);
+            TvShowRepository tvShowRepository = new TvShowRepository();
+            tvShowRepository.getTvShows();
         }catch (Exception ex){
             Log.e("getTvShows", ex.toString());
+            loading.setVisibility(View.GONE);
         }
     }
 
     private void initTvShowList(){
         try{
-            List<TvShow> listalocal = new ArrayList<TvShow>();
-            for(int i = 0; i<=30; i++){
-                TvShow tvshow = new TvShow();
-                tvshow.setId(i);
-                tvshow.setUrl("https://www.tvmaze.com/shows/1/under-the-dome");
-                tvshow.setName("Under the Dome");
-                tvshow.setType("Scripted");
-                tvshow.setLanguage("English");
-                tvshow.setStatus("Ended");
-                tvshow.setRuntime(60);
-                tvshow.setAverageRuntime(60);
-                tvshow.setPremiered("2013-06-24");
-                tvshow.setEnded("2015-09-10");
-                tvshow.setOfficialSite("http://www.cbs.com/shows/under-the-dome/");
-
-                Image titleImage = new Image();
-                titleImage.setMedium("https://static.tvmaze.com/uploads/images/medium_portrait/81/202627.jpg");
-                titleImage.setOriginal("https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg");
-
-                tvshow.setImage(titleImage);
-                listalocal.add(tvshow);
-            }
-
             //Crear el Adapter
-            adapter = new rvTvShowsAdapter(root.getContext(), listalocal);
-            list.setAdapter(adapter);
-
-            /*if(emergencieslist != null){
-                if(emergencieslist.size() > 0){
-                    rlempty.setVisibility(View.GONE);
-                    list.setVisibility(View.VISIBLE);
-                }else {
-                    rlempty.setVisibility(View.VISIBLE);
-                    list.setVisibility(View.GONE);
+            adapter = new rvTvShowsAdapter(listoftvshows, new rvTvShowsAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(TvShowModel item) {
+                    Toast.makeText(root.getContext(), "item" + item.getId(), Toast.LENGTH_LONG).show();
+                    Intent mIntent = new Intent(root.getContext(), DetailShowActivity.class);
+                    Bundle mBundle = new Bundle();
+                    mIntent.putExtra("tvshowmodel", item);
+                    mIntent.putExtras(mBundle);
+                    startActivity(mIntent);
                 }
-            }else{
-                rlempty.setVisibility(View.VISIBLE);
-                list.setVisibility(View.GONE);
-            }*/
+            });
+            list.setAdapter(adapter);
 
         }catch (Exception ex){
             Log.e("initTvShowList", ex.toString());
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(TvShowRequestEvent event) {
+        loading.setVisibility(View.GONE);
+        if(event.success){
+            this.listoftvshows = event.getList();
+            initTvShowList();
+        }else {
+            Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

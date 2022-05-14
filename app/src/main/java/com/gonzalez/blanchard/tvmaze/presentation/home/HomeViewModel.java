@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gonzalez.blanchard.tvmaze.data.models.Image;
-import com.gonzalez.blanchard.tvmaze.data.models.TvShow;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.gonzalez.blanchard.tvmaze.data.pojo.TvShow;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,11 @@
-package com.gonzalez.blanchard.tvmaze.data.models;
+package com.gonzalez.blanchard.tvmaze.data.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
 
     @SerializedName("medium")
     @Expose

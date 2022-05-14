@@ -1,33 +1,37 @@
-package com.gonzalez.blanchard.tvmaze.data.models;
+package com.gonzalez.blanchard.tvmaze.data.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
-import io.objectbox.annotation.Id;
 
-public class TvShow implements Serializable {
+public class TvShow {
 
-    @Id(assignable = true)
     @SerializedName("id")
     @Expose
     private long id;
+
     @SerializedName("url")
     @Expose
     private String url;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("type")
     @Expose
     private String type;
+
     @SerializedName("language")
     @Expose
     private String language;
+
     @SerializedName("status")
     @Expose
     private String status;
+
     @SerializedName("runtime")
     @Expose
     private Integer runtime;
@@ -35,26 +39,30 @@ public class TvShow implements Serializable {
     @SerializedName("averageRuntime")
     @Expose
     private Integer averageRuntime;
+
     @SerializedName("premiered")
     @Expose
     private String premiered;
+
     @SerializedName("ended")
     @Expose
     private String ended;
+
     @SerializedName("officialSite")
     @Expose
     private String officialSite;
+
     @SerializedName("summary")
     @Expose
     private String summary;
+
     @SerializedName("image")
     @Expose
     private Image image;
-    /*
+
     @SerializedName("genres")
     @Expose
     private List<String> genres = null;
-
 
     @SerializedName("schedule")
     @Expose
@@ -78,19 +86,25 @@ public class TvShow implements Serializable {
     @Expose
     private Externals externals;
 
-
     @SerializedName("updated")
     @Expose
     private Integer updated;
     @SerializedName("_links")
     @Expose
-    private Links links;*/
+    private Links links;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public TvShow() {
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -126,13 +140,13 @@ public class TvShow implements Serializable {
         this.language = language;
     }
 
-   /* public List<String> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
     public void setGenres(List<String> genres) {
         this.genres = genres;
-    }*/
+    }
 
     public String getStatus() {
         return status;
@@ -193,6 +207,7 @@ public class TvShow implements Serializable {
         this.summary = summary;
     }
 
+
     public Image getImage() {
         return image;
     }
@@ -201,7 +216,7 @@ public class TvShow implements Serializable {
         this.image = image;
     }
 
-    /*
+
     public Schedule getSchedule() {
         return schedule;
     }
@@ -259,9 +274,6 @@ public class TvShow implements Serializable {
     }
 
 
-
-
-
     public Integer getUpdated() {
         return updated;
     }
@@ -277,5 +289,5 @@ public class TvShow implements Serializable {
     public void setLinks(Links links) {
         this.links = links;
     }
-*/
+
 }

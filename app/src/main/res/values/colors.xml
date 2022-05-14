@@ -10,4 +10,5 @@
     <color name="backgroundbgcolor">#000000</color>
     <color name="textcolor1">#FFFFFF</color>
     <color name="textcolor2">#BDBDBD</color>
+    <color name="yellow_fab">#FFEB3B</color>
 </resources>

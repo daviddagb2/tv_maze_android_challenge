@@ -17,8 +17,11 @@
         android:theme="@style/Theme.TVMazeApp"
         tools:targetApi="31">
         <activity
-            android:name="com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailTvShowActivity"
-            android:exported="false" />
+            android:name=".presentation.detailtvshow.DetailShowActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail_show"
+            android:theme="@style/Theme.TVMazeApp.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
