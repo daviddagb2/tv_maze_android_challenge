@@ -1,4 +1,4 @@
-package com.gonzalez.blanchard.tvmaze.ui.gallery;
+package com.gonzalez.blanchard.tvmaze.presentation.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

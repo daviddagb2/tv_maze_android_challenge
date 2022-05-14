@@ -1,4 +1,4 @@
-package com.gonzalez.blanchard.tvmaze.ui.slideshow;
+package com.gonzalez.blanchard.tvmaze.presentation.slideshow;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
