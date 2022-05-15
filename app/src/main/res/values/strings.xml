@@ -9,10 +9,18 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
+    <string name="menu_favorites">My Favorites</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_pin">Security</string>
 
     <string name="dot">●</string>
-    <string name="title_activity_detail_show">DetailShowActivity</string>
+    <string name="title_activity_detail_show">Tv Show</string>
+    <string name="title_search_activity">Search</string>
+
+    <string name="search_hint">Search tv series</string>
+    <string name="header1">Search tv series</string>
+
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -103,4 +111,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="tv_show_name">tv show name</string>
+    <string name="str_genres">"Action - Comedy - Adventures "</string>
+    <string name="str_separator">-</string>
+    <string name="str_lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</string>
+    <string name="episodes">Episodes</string>
+    <string name="visit_website">Visit Website</string>
+    <string name="accion_aventura_drama">Action - Horror - Drama</string>
+    <string name="_2016">2016</string>
 </resources>

@@ -1,9 +1,15 @@
 package com.gonzalez.blanchard.tvmaze;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
+import com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailShowActivity;
+import com.gonzalez.blanchard.tvmaze.presentation.search.SearchActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,8 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        // Get the SearchView and set the searchable configuration
+        MenuItem action_settings = (MenuItem) menu.findItem(R.id.action_settings);
+        //findViewById(R.id.action_settings);
+
+        action_settings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //// Toast.makeText(MainActivity.this, "Buscar elemento", Toast.LENGTH_SHORT).show();
+
+                Intent mIntent = new Intent(MainActivity.this, SearchActivity.class);
+                Bundle mBundle = new Bundle();
+                startActivity(mIntent);
+
+                return false;
+            }
+        });
+
         return true;
     }
 

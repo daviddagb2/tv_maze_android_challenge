@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
-        android:text="@string/dot"
+        android:text="@string/str_separator"
         android:textColor="@color/textcolor2"
         app:layout_constraintStart_toEndOf="@+id/txtdate"
         app:layout_constraintTop_toBottomOf="@+id/txtname" />

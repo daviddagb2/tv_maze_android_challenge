@@ -11,4 +11,6 @@
     <color name="textcolor1">#FFFFFF</color>
     <color name="textcolor2">#BDBDBD</color>
     <color name="yellow_fab">#FFEB3B</color>
+    <color name="text_content_color">#FFFFFFFF</color>
+
 </resources>

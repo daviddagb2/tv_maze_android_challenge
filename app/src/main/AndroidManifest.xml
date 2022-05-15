@@ -16,11 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TVMazeApp"
         tools:targetApi="31">
+
         <activity
             android:name=".presentation.detailtvshow.DetailShowActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_show"
             android:theme="@style/Theme.TVMazeApp.NoActionBar" />
+
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false"
+            android:label="@string/title_search_activity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.TVMazeApp.NoActionBar">
+        </activity>
+
 
         <activity
             android:name=".MainActivity"
@@ -29,7 +39,6 @@
             android:theme="@style/Theme.TVMazeApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

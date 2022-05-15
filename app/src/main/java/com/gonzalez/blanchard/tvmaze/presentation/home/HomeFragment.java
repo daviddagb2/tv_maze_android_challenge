@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     View root;
     List<TvShowModel> listoftvshows = new ArrayList<>();
     ProgressBar loading;
+    TvShowRepository tvShowRepository;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +52,9 @@ public class HomeFragment extends Fragment {
         list = root.findViewById(R.id.rvlist);
         list.setLayoutManager(new GridLayoutManager(root.getContext(),3));
         list.setHasFixedSize(true);
-        //list.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+        //Init tv show repository
+        tvShowRepository = new TvShowRepository();
 
         //Init params on created
         onViewCreated();
@@ -78,7 +81,6 @@ public class HomeFragment extends Fragment {
     private void getTvShows(){
         try{
             loading.setVisibility(View.VISIBLE);
-            TvShowRepository tvShowRepository = new TvShowRepository();
             tvShowRepository.getTvShows();
         }catch (Exception ex){
             Log.e("getTvShows", ex.toString());
@@ -92,7 +94,7 @@ public class HomeFragment extends Fragment {
             adapter = new rvTvShowsAdapter(listoftvshows, new rvTvShowsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(TvShowModel item) {
-                    Toast.makeText(root.getContext(), "item" + item.getId(), Toast.LENGTH_LONG).show();
+                    ///Toast.makeText(root.getContext(), "item" + item.getId(), Toast.LENGTH_LONG).show();
                     Intent mIntent = new Intent(root.getContext(), DetailShowActivity.class);
                     Bundle mBundle = new Bundle();
                     mIntent.putExtra("tvshowmodel", item);

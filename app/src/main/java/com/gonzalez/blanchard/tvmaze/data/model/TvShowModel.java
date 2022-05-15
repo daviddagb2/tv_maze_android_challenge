@@ -1,7 +1,7 @@
 package com.gonzalez.blanchard.tvmaze.data.model;
 
 import java.io.Serializable;
-
+import java.time.LocalDate;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
@@ -25,12 +25,13 @@ public class TvShowModel implements Serializable {
     private String originalImageUrl;
     private Integer weight;
     private Integer updated;
+    private String genres;
 
     public  TvShowModel(){
 
     }
 
-    public TvShowModel(long id, String url, String name, String type, String language, String status, Integer runtime, Integer averageRuntime, String premiered, String ended, String officialSite, String summary, String mediumImageUrl, String originalImageUrl, Integer weight, Integer updated) {
+    public TvShowModel(long id, String url, String name, String type, String language, String status, Integer runtime, Integer averageRuntime, String premiered, String ended, String officialSite, String summary, String mediumImageUrl, String originalImageUrl, Integer weight, Integer updated, String genres) {
         this.id = id;
         this.url = url;
         this.name = name;
@@ -47,6 +48,7 @@ public class TvShowModel implements Serializable {
         this.originalImageUrl = originalImageUrl;
         this.weight = weight;
         this.updated = updated;
+        this.genres = genres;
     }
 
     public long getId() {
@@ -175,5 +177,18 @@ public class TvShowModel implements Serializable {
 
     public void setUpdated(Integer updated) {
         this.updated = updated;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public String getYear(){
+        LocalDate date = LocalDate.parse(this.premiered);
+        return "" + date.getYear();
     }
 }

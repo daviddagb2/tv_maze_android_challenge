@@ -59,8 +59,8 @@ public class rvTvShowsAdapter extends RecyclerView.Adapter<rvTvShowsAdapter.TvSh
 
         public void bind(final TvShowModel item, final OnItemClickListener listener) {
             txtname.setText(item.getName());
-            txtdate.setText(item.getPremiered());
-            txtaverage.setText("" + item.getAverageRuntime());
+            txtdate.setText(item.getYear());
+            txtaverage.setText("" + item.getGenres());
             Picasso.get().load(item.getMediumImageUrl()).into(imageTvShow);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
