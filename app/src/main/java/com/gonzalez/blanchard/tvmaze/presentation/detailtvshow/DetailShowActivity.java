@@ -1,11 +1,8 @@
 package com.gonzalez.blanchard.tvmaze.presentation.detailtvshow;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.gonzalez.blanchard.tvmaze.adapters.rvEpisodeAdapter;
-import com.gonzalez.blanchard.tvmaze.adapters.rvTvShowsAdapter;
 import com.gonzalez.blanchard.tvmaze.adapters.spSeasonsAdapter;
 import com.gonzalez.blanchard.tvmaze.data.model.EpisodeModel;
 import com.gonzalez.blanchard.tvmaze.data.model.SeasonModel;
@@ -14,21 +11,16 @@ import com.gonzalez.blanchard.tvmaze.data.repositories.TvShowRepository;
 import com.gonzalez.blanchard.tvmaze.databinding.ActivityDetailShowBinding;
 import com.gonzalez.blanchard.tvmaze.events.EpisodeRequestEvent;
 import com.gonzalez.blanchard.tvmaze.events.SeasonRequestEvent;
-import com.gonzalez.blanchard.tvmaze.events.TvShowRequestEvent;
 import com.gonzalez.blanchard.tvmaze.presentation.detailepisode.DetailEpisodeActivity;
-import com.gonzalez.blanchard.tvmaze.presentation.search.SearchActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -119,8 +111,6 @@ public class DetailShowActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                Toast.makeText(DetailShowActivity.this,"seasons " + seasons.get(position).getId(),Toast.LENGTH_LONG).show();
-
                 currentSeason = seasons.get(position).getId();
                 getEpisodes(currentSeason);
             }
@@ -194,12 +184,15 @@ public class DetailShowActivity extends AppCompatActivity {
     private void initEpisodeList(){
         try{
             //Crear el Adapter
-            adapter = new rvEpisodeAdapter(episodes, item -> {
-               /* Intent mIntent = new Intent(DetailShowActivity.this, DetailEpisodeActivity.class);
-                Bundle mBundle = new Bundle();
-                mIntent.putExtra("tvshowmodel", item);
-                mIntent.putExtras(mBundle);
-                startActivity(mIntent);*/
+            adapter = new rvEpisodeAdapter(episodes, new rvEpisodeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(EpisodeModel item) {
+                    Intent mIntent = new Intent(DetailShowActivity.this, DetailEpisodeActivity.class);
+                    Bundle mBundle = new Bundle();
+                    mIntent.putExtra("episode", item);
+                    mIntent.putExtras(mBundle);
+                    startActivity(mIntent);
+                }
             });
             listEpisodes.setAdapter(adapter);
         }catch (Exception ex){
@@ -233,6 +226,9 @@ public class DetailShowActivity extends AppCompatActivity {
         loadingSeason.setVisibility(View.GONE);
         if(event.success){
             this.seasons = event.getList();
+            if(seasons.size() > 1){
+                this.txt_seasons_count.setText(seasons.size() + " seasons");
+            }
             initSpinnerSeasons();
         }else {
             Toast.makeText(DetailShowActivity.this, event.message, Toast.LENGTH_SHORT).show();

@@ -184,9 +184,11 @@ public class TvShowRepository {
         String genre_detail = "";
 
         if(!(show.getGenres() == null)){
-            for(String genre: show.getGenres()){
-                genre_detail += genre;
-                genre_detail += "-";
+            for(int i=0; i< show.getGenres().size(); i++){
+                genre_detail += show.getGenres().get(i);
+                if(i < show.getGenres().size()-1){
+                    genre_detail += " ● ";
+                }
             }
         }
 

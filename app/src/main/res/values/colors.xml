@@ -13,4 +13,7 @@
     <color name="yellow_fab">#FFEB3B</color>
     <color name="text_content_color">#FFFFFFFF</color>
 
+    <color name="mainbgcolor">#FF000000</color>
+    <color name="list_episode_color">#5C7E7E7E</color>
+
 </resources>

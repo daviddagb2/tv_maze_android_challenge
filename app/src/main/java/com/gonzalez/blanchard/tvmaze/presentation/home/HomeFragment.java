@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     List<TvShowModel> listoftvshows = new ArrayList<>();
     ProgressBar loading;
     TvShowRepository tvShowRepository;
+    LinearLayout failedLoad;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
+
+        failedLoad = binding.failedLoad;
+        failedLoad.setVisibility(View.GONE);
 
         loading = root.findViewById(R.id.loading);
         list = root.findViewById(R.id.rvlist);
@@ -127,7 +132,16 @@ public class HomeFragment extends Fragment {
         loading.setVisibility(View.GONE);
         if(event.success){
             this.listoftvshows = event.getList();
-            initTvShowList();
+
+            if(listoftvshows.size() <= 0){
+                failedLoad.setVisibility(View.VISIBLE);
+                list.setVisibility(View.GONE);
+            }else{
+                failedLoad.setVisibility(View.GONE);
+                list.setVisibility(View.VISIBLE);
+                initTvShowList();
+            }
+
         }else {
             Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
         }

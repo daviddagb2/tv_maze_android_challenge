@@ -24,6 +24,13 @@
             android:theme="@style/Theme.TVMazeApp.NoActionBar" />
 
         <activity
+            android:name=".presentation.detailepisode.DetailEpisodeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail_episode"
+            android:theme="@style/Theme.TVMazeApp.NoActionBar" />
+
+
+        <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
             android:label="@string/title_search_activity"

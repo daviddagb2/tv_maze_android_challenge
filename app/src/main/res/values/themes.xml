@@ -23,26 +23,26 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_content_color</item>
-        <item name="android:typeface">monospace</item>
         <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:fontFamily">@font/opensansmedium</item>
     </style>
 
     <style name="TitleText" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_content_color</item>
-        <item name="android:typeface">monospace</item>
         <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">@font/opensanssemibold</item>
     </style>
 
     <style name="SummaryText" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_content_color</item>
-        <item name="android:typeface">monospace</item>
         <item name="android:textSize">@dimen/text_summary_size</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:fontFamily">@font/opensanslight</item>
     </style>
 
     <style name="Theme.TVMazeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
