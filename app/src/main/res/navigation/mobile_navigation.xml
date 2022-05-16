@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.gonzalez.blanchard.tvmaze.presentation.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_favorite"
+        android:name="com.gonzalez.blanchard.tvmaze.presentation.favorite.FavoriteFragment"
+        android:label="@string/menu_favorites"
+        tools:layout="@layout/fragment_favorite" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.gonzalez.blanchard.tvmaze.presentation.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_security_Pin"
+        android:name="com.gonzalez.blanchard.tvmaze.presentation.securityoptions.SecurityFragment"
+        android:label="@string/str_security"
+        tools:layout="@layout/fragment_security" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.gonzalez.blanchard.tvmaze.presentation.about.AboutFragment"
+        android:label="@string/str_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

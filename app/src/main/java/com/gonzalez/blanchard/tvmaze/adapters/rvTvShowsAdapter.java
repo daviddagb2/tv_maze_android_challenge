@@ -47,7 +47,7 @@ public class rvTvShowsAdapter extends RecyclerView.Adapter<rvTvShowsAdapter.TvSh
     }
 
     public static class TvShowViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageTvShow;
+        ImageView imageTvShow, imageHeart;
         TextView txtname, txtdate, txtaverage;
         public TvShowViewHolder(View itemView) {
             super(itemView);
@@ -55,6 +55,7 @@ public class rvTvShowsAdapter extends RecyclerView.Adapter<rvTvShowsAdapter.TvSh
             txtname = itemView.findViewById(R.id.txtname);
             txtdate = itemView.findViewById(R.id.txtdate);
             txtaverage = itemView.findViewById(R.id.txtaverage);
+            imageHeart = itemView.findViewById(R.id.imageHeart);
         }
 
         public void bind(final TvShowModel item, final OnItemClickListener listener) {
@@ -67,6 +68,9 @@ public class rvTvShowsAdapter extends RecyclerView.Adapter<rvTvShowsAdapter.TvSh
                     listener.onItemClick(item);
                 }
             });
+            if(item.getIsFavorite() == true){
+                imageHeart.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

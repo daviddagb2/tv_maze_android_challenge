@@ -1,9 +1,12 @@
 package com.gonzalez.blanchard.tvmaze.presentation.detailtvshow;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import com.gonzalez.blanchard.tvmaze.adapters.rvEpisodeAdapter;
 import com.gonzalez.blanchard.tvmaze.adapters.spSeasonsAdapter;
+import com.gonzalez.blanchard.tvmaze.data.database.TvShowDatabaseRepository;
 import com.gonzalez.blanchard.tvmaze.data.model.EpisodeModel;
 import com.gonzalez.blanchard.tvmaze.data.model.SeasonModel;
 import com.gonzalez.blanchard.tvmaze.data.model.TvShowModel;
@@ -52,13 +55,14 @@ public class DetailShowActivity extends AppCompatActivity {
     private List<SeasonModel> seasons = new ArrayList<SeasonModel>();
 
     TvShowRepository tvShowRepository;
+    TvShowDatabaseRepository tvShowRepositoryDB;
 
     RecyclerView listEpisodes;
     private rvEpisodeAdapter adapter;
     private List<EpisodeModel> episodes = new ArrayList<>();
 
     private long currentSeason = 1;
-
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +79,12 @@ public class DetailShowActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab = binding.fab;
+        fab.setOnClickListener(view -> addToFavorite());
 
         //Init tv show repository
         tvShowRepository = new TvShowRepository();
+        tvShowRepositoryDB = new TvShowDatabaseRepository();
 
         imagePoster = binding.imagePoster;
         txtcontent = binding.contentscrolling.txtcontent;
@@ -157,23 +156,15 @@ public class DetailShowActivity extends AppCompatActivity {
         txtgenres.setText(tvShow.getGenres());
         txt_date.setText(tvShow.getYear());
 
-        //Depends of seasons
-        txt_seasons_count.setText("" + 3);
-        //btn_website
-
-        initSpinnerSeasons();
-
-        getSeasons();
-
-        if(tvShow.getOfficialSite() != null){
-            btnWebsite.setVisibility(View.VISIBLE);
-        }else{
-            btnWebsite.setVisibility(View.GONE);
+        //Check if favorite element
+        if(tvShow.getIsFavorite()){
+            fab.setImageTintList(ColorStateList.valueOf(Color.rgb(255, 50, 50)));
         }
-        //Init spinner
-        //spinner_season_list;
-       //
 
+        //Depends of seasons
+        txt_seasons_count.setText("");
+        initSpinnerSeasons();
+        getSeasons();
     }
 
     private void initSpinnerSeasons(){
@@ -213,10 +204,28 @@ public class DetailShowActivity extends AppCompatActivity {
     private void getEpisodes(long seasonId){
         try{
             loadingEpisodes.setVisibility(View.VISIBLE);
+            listEpisodes.setVisibility(View.GONE);
             tvShowRepository.getEpisodes(seasonId);
         }catch (Exception ex){
             Log.e("getTvShows", ex.toString());
             loadingEpisodes.setVisibility(View.GONE);
+            listEpisodes.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void addToFavorite(){
+        if(tvShow.getIsFavorite() != true){
+            tvShow.setIsFavorite(true);
+            tvShowRepositoryDB.setFavoriteTvShow(tvShow);
+            fab.setImageTintList(ColorStateList.valueOf(Color.rgb(255, 50, 50)));
+            Snackbar.make(binding.fab, "TV Show added to favorites", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }else{
+            tvShow.setIsFavorite(false);
+            tvShowRepositoryDB.removeFavoriteTvShow(tvShow);
+            fab.setImageTintList(ColorStateList.valueOf(Color.rgb(0, 0, 0)));
+            Snackbar.make(binding.fab, "TV Show removed from favorites", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
     }
 
@@ -241,7 +250,12 @@ public class DetailShowActivity extends AppCompatActivity {
         loadingEpisodes.setVisibility(View.GONE);
         if(event.success){
             this.episodes = event.getList();
-            initEpisodeList();
+            if(episodes.size() > 0){
+                listEpisodes.setVisibility(View.VISIBLE);
+                initEpisodeList();
+            }else{
+                listEpisodes.setVisibility(View.GONE);
+            }
         }else {
             Toast.makeText(DetailShowActivity.this, event.message, Toast.LENGTH_SHORT).show();
         }

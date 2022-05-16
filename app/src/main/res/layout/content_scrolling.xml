@@ -53,7 +53,8 @@
                 style="@style/SummaryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:text="@string/one_season" />
         </LinearLayout>
 
         <TextView
@@ -65,16 +66,19 @@
 
         <Button
             android:id="@+id/btnWebsite"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/visit_website" />
+            android:foregroundTintMode="multiply"
+            android:text="@string/visit_website"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/label_episodes"
             style="@style/TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/episodes" />
 
         <ProgressBar
@@ -87,11 +91,10 @@
             android:id="@+id/spinnerSeasonList"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:backgroundTint="@color/ic_launcher_background"
-            android:popupBackground="@color/white"
-            android:spinnerMode="dropdown"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:popupBackground="@color/list_episode_color"
+            android:spinnerMode="dialog"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             app:theme="@style/ThemeOverlay.AppCompat.Light" />
 
 

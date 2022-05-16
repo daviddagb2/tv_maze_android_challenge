@@ -9,12 +9,17 @@
             android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/favorite"
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/icon_favorite"
             android:title="@string/menu_favorites" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/password"
+            android:id="@+id/nav_security_Pin"
+            android:icon="@drawable/icon_password"
             android:title="@string/menu_pin" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/icon_about"
+            android:title="@string/menu_about" />
     </group>
 </menu>

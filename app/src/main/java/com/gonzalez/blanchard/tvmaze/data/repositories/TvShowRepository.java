@@ -2,11 +2,12 @@ package com.gonzalez.blanchard.tvmaze.data.repositories;
 
 import com.gonzalez.blanchard.tvmaze.config.config;
 import com.gonzalez.blanchard.tvmaze.data.api.ApiService;
+import com.gonzalez.blanchard.tvmaze.data.database.TvShowDatabaseRepository;
 import com.gonzalez.blanchard.tvmaze.data.model.EpisodeModel;
 import com.gonzalez.blanchard.tvmaze.data.model.SeasonModel;
 import com.gonzalez.blanchard.tvmaze.data.model.TvShowModel;
 import com.gonzalez.blanchard.tvmaze.data.pojo.Episode;
-import com.gonzalez.blanchard.tvmaze.data.pojo.SearchRequest;
+import com.gonzalez.blanchard.tvmaze.data.pojo.SearchTvShowRequest;
 import com.gonzalez.blanchard.tvmaze.data.pojo.Season;
 import com.gonzalez.blanchard.tvmaze.data.pojo.TvShow;
 import com.gonzalez.blanchard.tvmaze.events.EpisodeRequestEvent;
@@ -16,6 +17,7 @@ import com.gonzalez.blanchard.tvmaze.utils.UnsafeOkHttpClient;
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,8 +27,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TvShowRepository {
 
+    TvShowDatabaseRepository dbrepository;
     Retrofit retrofit;
     public TvShowRepository(){
+        dbrepository = new TvShowDatabaseRepository();
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
 
         retrofit = new Retrofit.Builder()
@@ -51,7 +55,9 @@ public class TvShowRepository {
                 List<TvShow> tvshows = response.body();
                 List<TvShowModel> showlist = new ArrayList<>();
                 for (TvShow show : tvshows){
-                    showlist.add(convertTvShowPojoToModel(show));
+                    TvShowModel model = convertTvShowPojoToModel(show);
+                    showlist.add(model);
+                    dbrepository.saveTvShow(model);
                 }
                 EventBus.getDefault().post(new TvShowRequestEvent(true, "Request complete", showlist));
             }
@@ -106,19 +112,19 @@ public class TvShowRepository {
 
     public void searchTvShows(String query){
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<SearchRequest>> call = apiService.SearchShows(query);
-        call.enqueue(new Callback<List<SearchRequest>>() {
+        Call<List<SearchTvShowRequest>> call = apiService.SearchShows(query);
+        call.enqueue(new Callback<List<SearchTvShowRequest>>() {
             @Override
-            public void onResponse(Call<List<SearchRequest>> call, Response<List<SearchRequest>> response) {
+            public void onResponse(Call<List<SearchTvShowRequest>> call, Response<List<SearchTvShowRequest>> response) {
                 if(!response.isSuccessful()){
                     //add message of failure
                     EventBus.getDefault().post(new TvShowRequestEvent(false, "failed searching TV shows", new ArrayList<>()));
                     return;
                 }
 
-                List<SearchRequest> tvshowrequests = response.body();
+                List<SearchTvShowRequest> tvshowrequests = response.body();
                 List<TvShowModel> showlist = new ArrayList<>();
-                for (SearchRequest searchmd : tvshowrequests){
+                for (SearchTvShowRequest searchmd : tvshowrequests){
                     if(searchmd != null){
                         TvShow tvshowpojo = searchmd.getShow();
                         showlist.add(convertTvShowPojoToModel(tvshowpojo));
@@ -128,7 +134,7 @@ public class TvShowRepository {
             }
 
             @Override
-            public void onFailure(Call<List<SearchRequest>> call, Throwable t) {
+            public void onFailure(Call<List<SearchTvShowRequest>> call, Throwable t) {
                 EventBus.getDefault().post(new TvShowRequestEvent(false, "failed retrieving TV shows", new ArrayList<>()));
             }
         });
@@ -209,6 +215,7 @@ public class TvShowRepository {
                 show.getImage() != null ? show.getImage().getOriginal() : emptyImage,
                 show.getWeight(),
                 show.getUpdated(),
-                genre_detail);
+                genre_detail,
+                false);
     }
 }

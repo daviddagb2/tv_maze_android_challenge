@@ -26,12 +26,13 @@ public class TvShowModel implements Serializable {
     private Integer weight;
     private Integer updated;
     private String genres;
+    private Boolean isFavorite = false;
 
     public  TvShowModel(){
 
     }
 
-    public TvShowModel(long id, String url, String name, String type, String language, String status, Integer runtime, Integer averageRuntime, String premiered, String ended, String officialSite, String summary, String mediumImageUrl, String originalImageUrl, Integer weight, Integer updated, String genres) {
+    public TvShowModel(long id, String url, String name, String type, String language, String status, Integer runtime, Integer averageRuntime, String premiered, String ended, String officialSite, String summary, String mediumImageUrl, String originalImageUrl, Integer weight, Integer updated, String genres, Boolean isFavorite) {
         this.id = id;
         this.url = url;
         this.name = name;
@@ -49,6 +50,7 @@ public class TvShowModel implements Serializable {
         this.weight = weight;
         this.updated = updated;
         this.genres = genres;
+        this.isFavorite = isFavorite;
     }
 
     public long getId() {
@@ -188,7 +190,20 @@ public class TvShowModel implements Serializable {
     }
 
     public String getYear(){
-        LocalDate date = LocalDate.parse(this.premiered);
-        return "" + date.getYear();
+        if(this.premiered != null){
+            LocalDate date = LocalDate.parse(this.premiered);
+            return "" + date.getYear();
+        }else{
+            return "NA";
+        }
+
+    }
+
+    public Boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(Boolean favorite) {
+        isFavorite = favorite;
     }
 }

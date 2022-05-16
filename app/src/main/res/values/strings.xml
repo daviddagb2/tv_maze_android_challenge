@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">TV Maze App</string>
+    <string name="app_name">Jobsity TV App</string>
+    <string name="description">Search and view TV Shows easily</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -12,14 +13,14 @@
     <string name="menu_favorites">My Favorites</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_pin">Security</string>
-
+    <string name="menu_about">About App</string>
+    <string name="unlock_phone">Unlock</string>
     <string name="dot">●</string>
     <string name="title_activity_detail_show">Tv Show</string>
     <string name="title_search_activity">Search</string>
     <string name="title_activity_detail_episode">Episode</string>
     <string name="search_hint">Search tv series</string>
     <string name="header1">Search tv series</string>
-
 
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -42,4 +43,19 @@
     <string name="visit_website">Visit Website</string>
     <string name="accion_aventura_drama">Action - Horror - Drama</string>
     <string name="_2016">2016</string>
+    <string name="one_season">1 season</string>
+    <string name="str_security">Security and Password</string>
+    <string name="str_enable_pin">Set up your PIN</string>
+    <string name="labelPin">PIN</string>
+    <string name="str_add_pin">Please enter your PIN code</string>
+    <string name="str_about">About</string>
+    <string name="str_tv_shows">TV Shows</string>
+    <string name="str_people">People</string>
+
+    <string name="str_author">Created by: David Antonio Gonzalez Blanchard</string>
+
+    <string name="str_linkedin">LinkedIn: https://www.linkedin.com/in/davidgb2021/</string>
+    <string name="str_website">Website: https://gonzalezblanchard.com</string>
+    <string name="str_github">Github: https://github.com/daviddagb2</string>
+
 </resources>

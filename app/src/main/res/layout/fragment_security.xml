@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.securityoptions.SecurityFragment">
+
+    <TextView
+        android:id="@+id/labelSecurity"
+        style="@style/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/str_security"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/str_enable_pin"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelSecurity" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEnabledPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:minHeight="48dp"
+        android:text="Enabled"
+        android:textColor="@color/text_content_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/labelSecurity" />
+
+    <EditText
+        android:id="@+id/inputPin"
+        style="@style/editTextInput"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:height="50dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/labelPin"
+        android:inputType="number|textPassword"
+        android:maxLength="4"
+        android:minHeight="48dp"
+        android:textColorHint="#78909C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelSecurity" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSavePin"
+        style="@style/AppTheme.Button"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:text="Save pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

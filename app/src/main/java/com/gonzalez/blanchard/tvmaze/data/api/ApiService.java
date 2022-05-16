@@ -1,7 +1,9 @@
 package com.gonzalez.blanchard.tvmaze.data.api;
 
+import com.gonzalez.blanchard.tvmaze.data.pojo.CastCredit;
 import com.gonzalez.blanchard.tvmaze.data.pojo.Episode;
-import com.gonzalez.blanchard.tvmaze.data.pojo.SearchRequest;
+import com.gonzalez.blanchard.tvmaze.data.pojo.SearchPeopleRequest;
+import com.gonzalez.blanchard.tvmaze.data.pojo.SearchTvShowRequest;
 import com.gonzalez.blanchard.tvmaze.data.pojo.Season;
 import com.gonzalez.blanchard.tvmaze.data.pojo.TvShow;
 
@@ -18,7 +20,7 @@ public interface ApiService {
     Call<List<TvShow>> ListsShows();
 
     @GET("/search/shows")
-    Call<List<SearchRequest>> SearchShows(
+    Call<List<SearchTvShowRequest>> SearchShows(
             @Query("q") String search);
 
     @GET("/shows/{showid}/seasons")
@@ -29,4 +31,12 @@ public interface ApiService {
     Call<List<Episode>> ListEpisodes(
             @Path("episodeid") long showId);
 
+    @GET("/search/people")
+    Call<List<SearchPeopleRequest>> SearchPeople(
+            @Query("q") String search);
+
+    @GET("/people/{personId}/castcredits")
+    Call<List<CastCredit>> ListCastCredits(
+            @Path("personId") long personId,
+            @Query("embed") String embed);
 }

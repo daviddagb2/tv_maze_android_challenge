@@ -8,12 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="backgroundbgcolor">#000000</color>
+    <color name="secondbackgroundcolor">#54000000</color>
+
     <color name="textcolor1">#FFFFFF</color>
     <color name="textcolor2">#BDBDBD</color>
     <color name="yellow_fab">#FFEB3B</color>
     <color name="text_content_color">#FFFFFFFF</color>
 
+
+    <color name="primary_color">#2196F3</color>
+    <color name="disabled_color">#636363</color>
+
+
     <color name="mainbgcolor">#FF000000</color>
     <color name="list_episode_color">#5C7E7E7E</color>
+    <color name="drawer_color">#2A2B2E</color>
 
 </resources>

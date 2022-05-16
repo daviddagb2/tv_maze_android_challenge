@@ -3,9 +3,9 @@ package com.gonzalez.blanchard.tvmaze.presentation.search;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,16 +14,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.gonzalez.blanchard.tvmaze.R;
+import com.gonzalez.blanchard.tvmaze.adapters.rvPeopleAdapter;
 import com.gonzalez.blanchard.tvmaze.adapters.rvTvShowsAdapter;
+import com.gonzalez.blanchard.tvmaze.data.model.PersonModel;
 import com.gonzalez.blanchard.tvmaze.data.model.TvShowModel;
+import com.gonzalez.blanchard.tvmaze.data.repositories.PeopleRepository;
 import com.gonzalez.blanchard.tvmaze.data.repositories.TvShowRepository;
-import com.gonzalez.blanchard.tvmaze.databinding.ActivityDetailShowBinding;
 import com.gonzalez.blanchard.tvmaze.databinding.ActivitySearchBinding;
+import com.gonzalez.blanchard.tvmaze.events.PersonRequestEvent;
 import com.gonzalez.blanchard.tvmaze.events.TvShowRequestEvent;
 import com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailShowActivity;
+import com.gonzalez.blanchard.tvmaze.presentation.people.PersonActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,12 +45,19 @@ public class SearchActivity extends AppCompatActivity {
     private CollapsingToolbarLayout toolBarLayout;
 
     private rvTvShowsAdapter adapter;
+    private rvPeopleAdapter adapterperson;
     RecyclerView list;
     List<TvShowModel> listoftvshows = new ArrayList<>();
+    List<PersonModel> listofperson = new ArrayList<>();
+
     ProgressBar loading;
     EditText searchtext;
     TvShowRepository tvShowRepository = new TvShowRepository();
+    PeopleRepository peopleRepository = new PeopleRepository();
 
+    String searchBy = "TVSHOW"; // TVSHOW | PEOPLE
+
+    RadioButton radiotvshow, radiopeople;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +69,22 @@ public class SearchActivity extends AppCompatActivity {
         toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle("");
+        toolBarLayout.setTitle("Search TV Shows or People");
 
         //enable back button
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
         loading = binding.progressBar;
+        loading.setVisibility(View.GONE);
         list = binding.rvlista;
         list.setLayoutManager(new GridLayoutManager(SearchActivity.this,3));
         list.setHasFixedSize(true);
-
         searchtext = binding.searchtext;
+
+        radiotvshow = binding.radiotvshow;
+        radiopeople = binding.radiopeople;
+        radiotvshow.setChecked(true);
 
         //Init events list
         initTvShowList();
@@ -76,10 +92,11 @@ public class SearchActivity extends AppCompatActivity {
         searchtext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                // you can call or do what you want with your EditText here
-                Toast.makeText(SearchActivity.this, "" + s, Toast.LENGTH_SHORT).show();
-                // yourEditText...
-                getTvShows(s.toString());
+                if( searchBy == "TVSHOW"){
+                    getTvShows(s.toString());
+                }else{
+                    getPeople(s.toString());
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -116,9 +133,21 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    private void getPeople(String search){
+        try{
+            loading.setVisibility(View.VISIBLE);
+            peopleRepository.searchPeople(search);
+        }catch (Exception ex){
+            Log.e("getPeople", ex.toString());
+            loading.setVisibility(View.GONE);
+        }
+    }
+
     private void initTvShowList(){
         try{
-            //Crear el Adapter
+            list.setLayoutManager(new GridLayoutManager(SearchActivity.this,3));
+            list.setHasFixedSize(true);
+
             adapter = new rvTvShowsAdapter(listoftvshows, new rvTvShowsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(TvShowModel item) {
@@ -135,6 +164,30 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+
+    private void initPersonList(){
+        try{
+
+            list.setLayoutManager(new GridLayoutManager(SearchActivity.this, 2));
+            list.setHasFixedSize(true);
+
+            adapterperson = new rvPeopleAdapter(listofperson, new rvPeopleAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(PersonModel item) {
+                    Intent mIntent = new Intent(SearchActivity.this, PersonActivity.class);
+                    Bundle mBundle = new Bundle();
+                    mIntent.putExtra("personmodel", item);
+                    mIntent.putExtras(mBundle);
+                    startActivity(mIntent);
+                }
+            });
+
+            list.setAdapter(adapterperson);
+        }catch (Exception ex){
+            Log.e("initPersonList", ex.toString());
+        }
+    }
+
     // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TvShowRequestEvent event) {
@@ -147,6 +200,36 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(PersonRequestEvent event) {
+        loading.setVisibility(View.GONE);
+        if(event.success){
+            this.listofperson = event.getList();
+            initPersonList();
+        }else {
+            Toast.makeText(SearchActivity.this, event.message, Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radiotvshow:
+                if (checked) {
+                    searchBy = "TVSHOW";
+                    }
+                    break;
+            case R.id.radiopeople:
+                if (checked){
+                    searchBy = "PEOPLE";
+                }
+                break;
+        }
+       /// Toast.makeText(SearchActivity.this, "on radio button" + searchBy, Toast.LENGTH_SHORT).show();
+    }
 }

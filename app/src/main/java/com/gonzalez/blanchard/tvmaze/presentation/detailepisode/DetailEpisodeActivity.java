@@ -52,7 +52,6 @@ public class DetailEpisodeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
         try{
-            //get element detail
             currentEpisode = (EpisodeModel) getIntent().getSerializableExtra("episode");
             initData();
         }catch (Exception ex){
@@ -70,6 +69,12 @@ public class DetailEpisodeActivity extends AppCompatActivity {
     public void onStop() {
         //EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void initData(){

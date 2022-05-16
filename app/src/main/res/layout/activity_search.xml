@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.search.SearchActivity">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -55,8 +54,52 @@
         android:layout_below="@id/rvlista"
         android:drawableStart="@android:drawable/ic_menu_search"
         android:hint="search"
+        android:textColor="@color/white"
         android:textColorHint="#757575"
         app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchtext">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/NormalText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:text="Search for" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiotvshow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/str_tv_shows"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/radiopeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/str_people"
+                android:textColor="@color/white" />
+        </RadioGroup>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvlista"
@@ -67,7 +110,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchtext">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     </androidx.recyclerview.widget.RecyclerView>
 

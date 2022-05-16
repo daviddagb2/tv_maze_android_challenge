@@ -63,7 +63,7 @@ public class rvEpisodeAdapter extends RecyclerView.Adapter<rvEpisodeAdapter.Epis
 
         public void bind(final EpisodeModel item, final rvEpisodeAdapter.OnItemClickListener listener) {
             txtEpisodeName.setText("Episode " + item.getNumber() + " - " + item.getName());
-            txtSummary.setText(Html.fromHtml(item.getSummary()));
+            txtTime.setVisibility(View.GONE);
             if(item.getMediumImageUrl() != null){
                 if(item.getMediumImageUrl().length() > 1){
                     Picasso.get().load(item.getMediumImageUrl()).into(imageEpisode);

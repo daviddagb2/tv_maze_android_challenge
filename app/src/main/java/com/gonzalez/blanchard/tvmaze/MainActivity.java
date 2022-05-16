@@ -1,15 +1,21 @@
 package com.gonzalez.blanchard.tvmaze;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
+import com.gonzalez.blanchard.tvmaze.config.config;
+import com.gonzalez.blanchard.tvmaze.data.model.EpisodeModel;
+import com.gonzalez.blanchard.tvmaze.presentation.detailepisode.DetailEpisodeActivity;
 import com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailShowActivity;
 import com.gonzalez.blanchard.tvmaze.presentation.search.SearchActivity;
+import com.gonzalez.blanchard.tvmaze.presentation.security.SecurityActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,13 +32,37 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private boolean showLockScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        showLockScreen = checkPinEnabled();
+        Bundle b = getIntent().getExtras();
+        if (getIntent().hasExtra("checkPin")) {
+            int checkPin = b.getInt("checkPin");
+            if(checkPin != 0){
+                // Do something else
+                Intent checkPinActivity = new Intent(MainActivity.this, SecurityActivity.class);
+                startActivity(checkPinActivity);
+                finish();
+            }
+        } else {
+            if(showLockScreen == true){
+                // Do something else
+                Intent checkPinActivity = new Intent(MainActivity.this, SecurityActivity.class);
+                startActivity(checkPinActivity);
+                finish();
+            }
+        }
+
+
+
+
+
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +79,14 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_favorite, R.id.nav_security_Pin, R.id.nav_about)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
     }
 
     @Override
@@ -87,5 +119,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public boolean checkPinEnabled(){
+        SharedPreferences sharedPref = MainActivity.this.getSharedPreferences(config.PREF_ROOT, Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(config.PREF_PIN_ENABLED, false);
     }
 }
