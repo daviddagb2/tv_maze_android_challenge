@@ -1,15 +1,15 @@
-# Welcome to Jobsity Anroid Challenge
+# Welcome to Jobsity Android Challenge
 This app was created to complete the Jobsity Android challenge of consume the TV Maze API: [https://www.tvmaze.com/api](https://www.tvmaze.com/api) The apk can be found inside the **/androidapk** folder.
 
 # Project
-This App is developer using Android With Java Language and it uses the following components:
+This App is developed using Android With Java and it uses the following components:
 
-- ObjectBox for databases ([Visit website](https://objectbox.io/))
-- TV Maze Api ([Visit website](https://www.tvmaze.com/api))
-- EventBus for the comunication between process ([Visit website](https://greenrobot.org/eventbus/))
-- Retrofit to consume WebApis ([Visit webiste](https://square.github.io/retrofit/))
-- Gson for object serialization ([Visit website](https://github.com/google/gson))
-- Picasso for image management ([Visit website](https://square.github.io/picasso/))
+- [ObjectBox](https://objectbox.io/) for databases
+-  [TV Maze Api](https://www.tvmaze.com/api)
+- [EventBus](https://greenrobot.org/eventbus/) for the comunication between process
+- [Retrofit](https://square.github.io/retrofit/) to consume WebApis
+- [Gson ](https://github.com/google/gson)for object serialization
+- [Picasso](https://square.github.io/picasso/) for image downloading and caching
 ## Compile project
 
 This repository contain all the files used to create the app the requirements for compile the app are the following:
@@ -31,20 +31,20 @@ To install the APK is necesary to enable unknow sources The first thing to do is
   series.
 - [x] After clicking on a series, the application should show the details of the series, showing the following information:
   Name,
-    -  Name
-    -  poster
-    -  Days and time during which the series airs,
-    -  Genres,
-    -  Summary,
-    -  List of episodes separated by season
+  -  Name
+  -  poster
+  -  Days and time during which the series airs,
+  -  Genres,
+  -  Summary,
+  -  List of episodes separated by season
 - [x] After clicking on an episode, the application should show the episode’s information,
   including:
-    - List item
-    -  Name
-    -   Number
-    -  Season
-    -  Summary
-    -  Image, if there is one
+  - List item
+  -  Name
+  -   Number
+  -  Season
+  -  Summary
+  -  Image, if there is one
 
 ## Bonus (Optional) features
 
