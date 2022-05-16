@@ -19,8 +19,7 @@ public class TvShowDatabaseRepository {
             Box<TvShowModel> tvShowBox = ObjectBoxMain.get().boxFor(TvShowModel.class);
             QueryBuilder<TvShowModel> builder = tvShowBox.query();
             builder.equal(TvShowModel_.id, id);
-            TvShowModel curTvShowModel = builder.build().findFirst();
-            return curTvShowModel;
+            return builder.build().findFirst();
         }catch (Exception ex){
             return null;
         }
@@ -35,7 +34,7 @@ public class TvShowDatabaseRepository {
             //Se crea el querybuilder
             QueryBuilder<TvShowModel> builder = TvShowBox.query();
             builder.equal(TvShowModel_.isFavorite, true);
-            builder.order(TvShowModel_.id, QueryBuilder.DESCENDING);
+            builder.order(TvShowModel_.name);
             tvshowlist = builder.build().find();
 
         }catch (Exception ex){

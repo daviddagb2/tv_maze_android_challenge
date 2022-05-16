@@ -54,7 +54,7 @@ To install the APK is necesary to enable unknow sources The first thing to do is
 - [x] For supported phones, the user must be able to choose if they want to enable fingerprint authentication to avoid typing the PIN number while opening the app.
 - [x] Allow the user to save a series as a favorite.
 - [x] Allow the user to delete a series from the favorites list.
-- [x] Allow the user to browse their favorite series in alphabetical order, and click on one to see its details.  (***Alphabetical order pending***)
+- [x] Allow the user to browse their favorite series in alphabetical order, and click on one to see its details.
 - [x]  Create a people search by listing the name and image of the person.
 - [x] After clicking on a person, the application should show the details of that person, such as: Name, Image and Series they have participated in, with a link to the series details.
 
