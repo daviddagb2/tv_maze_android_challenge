@@ -118,8 +118,21 @@ public class PersonActivity extends AppCompatActivity {
     private  void initData(){
       //  Picasso.get().load(person.getOriginalImageUrl()).into(imagePersonDetail);
         txtName.setText( person.getName());
-        txtBirthdayDetail.setText("Birthday: " + person.getBirthday());
-        txtCountry.setText("Country: " + person.getCountry());
+
+        if(person.getBirthday() != null){
+            txtBirthdayDetail.setText("Birthday: " + person.getBirthday());
+            txtBirthdayDetail.setVisibility(View.VISIBLE);
+        }else{
+            txtBirthdayDetail.setVisibility(View.GONE);
+        }
+
+        if(person.getCountry() != null){
+            txtCountry.setText("Country: " + person.getCountry());
+            txtCountry.setVisibility(View.VISIBLE);
+        }else{
+            txtCountry.setVisibility(View.GONE);
+        }
+
         toolBarLayout.setTitle(person.getName());
         Picasso.get().load(person.getOriginalImageUrl()).transform(new CircleTransform()).into(imagePersonDetail);
         InitTvShowList();

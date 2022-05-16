@@ -51,7 +51,7 @@
     <string name="str_about">About</string>
     <string name="str_tv_shows">TV Shows</string>
     <string name="str_people">People</string>
-
+    <string name="str_login_fingerprint">Enter using fingerprint</string>
     <string name="str_author">Created by: David Antonio Gonzalez Blanchard</string>
 
     <string name="str_linkedin">LinkedIn: https://www.linkedin.com/in/davidgb2021/</string>

@@ -70,11 +70,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/person_tv"
-            android:tint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtGIthub2" />
+            app:layout_constraintTop_toBottomOf="@+id/txtGIthub2"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
