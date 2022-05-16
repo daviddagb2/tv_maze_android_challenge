@@ -1,5 +1,5 @@
 # Welcome to Jobsity Android Challenge
-This app was created to complete the Jobsity Android challenge of consume the TV Maze API: [https://www.tvmaze.com/api](https://www.tvmaze.com/api) The apk can be found inside the **/androidapk** folder.
+This app was created to complete the Jobsity Android challenge of consume the TV Maze API: [https://www.tvmaze.com/api](https://www.tvmaze.com/api) The apk can be found inside the **/distribution** folder.
 
 # Project
 This App is developed using Android With Java and it uses the following components:
