@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jobsity TV App</string>
+    <string name="app_name">TV Series App</string>
     <string name="description">Search and view TV Shows easily</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
