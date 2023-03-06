@@ -13,31 +13,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.gonzalez.blanchard.tvmaze.R;
-import com.gonzalez.blanchard.tvmaze.adapters.rvEpisodeAdapter;
-import com.gonzalez.blanchard.tvmaze.adapters.rvPeopleAdapter;
 import com.gonzalez.blanchard.tvmaze.adapters.rvTvShowsAdapter;
-import com.gonzalez.blanchard.tvmaze.data.model.EpisodeModel;
 import com.gonzalez.blanchard.tvmaze.data.model.PersonModel;
-import com.gonzalez.blanchard.tvmaze.data.model.SeasonModel;
 import com.gonzalez.blanchard.tvmaze.data.model.TvShowModel;
 import com.gonzalez.blanchard.tvmaze.data.repositories.PeopleRepository;
 import com.gonzalez.blanchard.tvmaze.databinding.ActivityPersonBinding;
 import com.gonzalez.blanchard.tvmaze.events.CastCreditRequestEvent;
-import com.gonzalez.blanchard.tvmaze.events.SeasonRequestEvent;
-import com.gonzalez.blanchard.tvmaze.presentation.detailepisode.DetailEpisodeActivity;
 import com.gonzalez.blanchard.tvmaze.presentation.detailtvshow.DetailShowActivity;
-import com.gonzalez.blanchard.tvmaze.presentation.search.SearchActivity;
 import com.gonzalez.blanchard.tvmaze.utils.CircleTransform;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,9 +105,7 @@ public class PersonActivity extends AppCompatActivity {
     }
 
     private  void initData(){
-      //  Picasso.get().load(person.getOriginalImageUrl()).into(imagePersonDetail);
         txtName.setText( person.getName());
-
         if(person.getBirthday() != null){
             txtBirthdayDetail.setText("Birthday: " + person.getBirthday());
             txtBirthdayDetail.setVisibility(View.VISIBLE);
@@ -134,7 +121,13 @@ public class PersonActivity extends AppCompatActivity {
         }
 
         toolBarLayout.setTitle(person.getName());
-        Picasso.get().load(person.getOriginalImageUrl()).transform(new CircleTransform()).into(imagePersonDetail);
+
+        if (person.getOriginalImageUrl().isEmpty()) {
+            imagePersonDetail.setImageResource(R.drawable.ic_launcher_foreground);
+        } else{
+            Picasso.get().load(person.getOriginalImageUrl()).transform(new CircleTransform()).into(imagePersonDetail);
+        }
+
         InitTvShowList();
     }
 

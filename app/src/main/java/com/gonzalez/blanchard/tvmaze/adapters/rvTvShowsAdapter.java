@@ -62,7 +62,12 @@ public class rvTvShowsAdapter extends RecyclerView.Adapter<rvTvShowsAdapter.TvSh
             txtname.setText(item.getName());
             txtdate.setText(item.getYear());
             txtaverage.setText("" + item.getGenres());
-            Picasso.get().load(item.getMediumImageUrl()).into(imageTvShow);
+            if (item.getMediumImageUrl().isEmpty()) {
+                imageTvShow.setImageResource(R.drawable.ic_launcher_foreground);
+            } else{
+                Picasso.get().load(item.getMediumImageUrl()).into(imageTvShow);
+            }
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(item);

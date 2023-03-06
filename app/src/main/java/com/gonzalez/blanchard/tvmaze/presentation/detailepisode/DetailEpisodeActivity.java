@@ -78,7 +78,11 @@ public class DetailEpisodeActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        Picasso.get().load(currentEpisode.getOriginalImageUrl()).into(imageEpisodeDetail);
+        if (currentEpisode.getOriginalImageUrl().isEmpty()) {
+            imageEpisodeDetail.setImageResource(R.drawable.ic_launcher_foreground);
+        } else{
+            Picasso.get().load(currentEpisode.getOriginalImageUrl()).into(imageEpisodeDetail);
+        }
         txtEpisodeTitle.setText(currentEpisode.getName());
         txtSeasonEpisode.setText("Season " + currentEpisode.getSeason() + " - Episode " + currentEpisode.getNumber());
         textDetailEpisode.setText(Html.fromHtml(currentEpisode.getSummary()) );

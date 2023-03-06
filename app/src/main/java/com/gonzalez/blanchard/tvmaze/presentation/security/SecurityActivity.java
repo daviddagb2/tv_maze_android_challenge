@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.biometrics.BiometricManager;
 import android.hardware.biometrics.BiometricPrompt;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,11 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gonzalez.blanchard.tvmaze.MainActivity;
 import com.gonzalez.blanchard.tvmaze.R;
 import com.gonzalez.blanchard.tvmaze.config.config;
-import com.gonzalez.blanchard.tvmaze.databinding.ActivityDetailEpisodeBinding;
 import com.gonzalez.blanchard.tvmaze.databinding.ActivitySecurityBinding;
 
 public class SecurityActivity extends AppCompatActivity {

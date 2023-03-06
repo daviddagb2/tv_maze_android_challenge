@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import com.gonzalez.blanchard.tvmaze.R;
 import com.gonzalez.blanchard.tvmaze.adapters.rvEpisodeAdapter;
 import com.gonzalez.blanchard.tvmaze.adapters.spSeasonsAdapter;
 import com.gonzalez.blanchard.tvmaze.data.database.TvShowDatabaseRepository;
@@ -149,7 +150,11 @@ public class DetailShowActivity extends AppCompatActivity {
     }
 
     private  void initData(){
-        Picasso.get().load(tvShow.getOriginalImageUrl()).into(imagePoster);
+        if (tvShow.getOriginalImageUrl().isEmpty()) {
+            imagePoster.setImageResource(R.drawable.ic_launcher_foreground);
+        } else{
+            Picasso.get().load(tvShow.getOriginalImageUrl()).into(imagePoster);
+        }
         txtcontent.setText( Html.fromHtml(tvShow.getSummary()) );
         toolBarLayout.setTitle(tvShow.getName());
         txttitle.setText(tvShow.getName());

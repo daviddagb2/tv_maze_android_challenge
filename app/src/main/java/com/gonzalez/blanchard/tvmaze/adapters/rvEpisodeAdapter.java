@@ -66,7 +66,11 @@ public class rvEpisodeAdapter extends RecyclerView.Adapter<rvEpisodeAdapter.Epis
             txtTime.setVisibility(View.GONE);
             if(item.getMediumImageUrl() != null){
                 if(item.getMediumImageUrl().length() > 1){
-                    Picasso.get().load(item.getMediumImageUrl()).into(imageEpisode);
+                    if (item.getMediumImageUrl().isEmpty()) {
+                        imageEpisode.setImageResource(R.drawable.ic_launcher_foreground);
+                    } else{
+                        Picasso.get().load(item.getMediumImageUrl()).into(imageEpisode);
+                    }
                 }
             }
             itemView.setOnClickListener(new View.OnClickListener() {
